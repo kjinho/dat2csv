@@ -49,7 +49,7 @@ exec ros -Q -- $0 "$@"
 (defun cli/command ()
   (clingon:make-command
    :name "dat2csv"
-   :description "converts Concordance DAT file to CSV"
+   :description "convert Concordance DAT file to CSV"
    :version "0.1.0"
    :license "All rights reserved"
    :authors '("Jin-Ho King <j@kingesq.us>")
