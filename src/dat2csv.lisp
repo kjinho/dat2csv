@@ -1,17 +1,4 @@
-#!/bin/sh
-#|-*- mode:lisp -*-|#
-#|
-exec ros -Q -- $0 "$@"
-|#
-(progn ;;init forms
-  (ros:ensure-asdf)
-  #+quicklisp(ql:quickload '(cl-csv clingon) :silent t)
-  )
-
-(defpackage :ros.script.dat.3913987728
-  (:use :cl))
-(in-package :ros.script.dat.3913987728)
-
+(in-package :dat2csv)
 
 (defparameter *separator* #\)
 (defparameter *quote* #\þ)
@@ -58,7 +45,20 @@ exec ros -Q -- $0 "$@"
    :handler #'cli/handler))
 
 
-(defun main (&rest argv)
-  (declare (ignorable argv))
-  (clingon:run (cli/command) argv))
-;;; vim: set ft=lisp lisp:
+(defun %main (&rest argv)
+  (setf clingon:*default-help-flag*
+    (clingon:make-option 
+     :flag
+     :description "display usage information and exit"
+     :long-name "help"
+     :short-name #\h
+     :key :clingon.help.flag))
+  (let ((app (cli/command)))
+    (clingon:run app argv)))
+        
+(defun main ()
+  "Entry point for the executable.
+  Reads command line arguments."
+  ;; uiop:command-line-arguments returns a list of arguments (sans the script name).
+  ;; We defer the work of parsing to %main because we call it also from the Roswell script.
+  (apply #'%main (uiop:command-line-arguments)))
