@@ -3,13 +3,21 @@
 (defparameter *separator* #\)
 (defparameter *quote* #\þ)
 
-(defun convert-concordance-to-csv (filename)  
-  (cl-csv:write-csv 
-   (with-open-file (s filename)
-     (cl-csv:read-csv s 
-                      :separator *separator*
-                      :quote *quote*))
-   :stream *standard-output*))
+(defun convert-concordance-to-csv (filename)
+  (let ((file-info (auto-text:analyze filename 
+                                      :silent t
+                                      :sample-size 0)))
+    (cl-csv:write-csv 
+     (with-open-file (s filename :element-type '(unsigned-byte 8))
+       (setq s (flexi-streams:make-flexi-stream
+                s
+                :external-format (case (getf file-info :bom-type)
+                                   (:utf-16le :utf-16le)
+                                   (otherwise :utf-8))))
+       (cl-csv:read-csv s 
+                        :separator *separator*
+                        :quote *quote*))
+     :stream *standard-output*)))
 
 (defun cli/options ()
   "Returns a list of options for our main command"
