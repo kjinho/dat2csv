@@ -4,13 +4,14 @@
   (:import-from :cl-csv)
   (:import-from :auto-text)
   (:import-from :flexi-streams)
-  (:export :main))
+  (:export :main
+           :convert-concordance-to-csv))
 (in-package :dat2csv/src/main)
 
 (defparameter *separator* #\)
 (defparameter *quote* #\þ)
 
-(defun convert-concordance-to-csv (filename)
+(defun convert-concordance-to-csv (filename &key (stream *standard-output*))
   (let ((file-info (auto-text:analyze filename 
                                       :silent t
                                       :sample-size 0)))
@@ -24,7 +25,7 @@
        (cl-csv:read-csv s 
                         :separator *separator*
                         :quote *quote*))
-     :stream *standard-output*)))
+     :stream stream)))
 
 (defun cli/options ()
   "Returns a list of options for our main command"
