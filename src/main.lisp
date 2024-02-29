@@ -1,4 +1,11 @@
-(in-package :dat2csv)
+(uiop:define-package :dat2csv/src/main
+  (:use :cl)
+  (:import-from :clingon)
+  (:import-from :cl-csv)
+  (:import-from :auto-text)
+  (:import-from :flexi-streams)
+  (:export :main))
+(in-package :dat2csv/src/main)
 
 (defparameter *separator* #\)
 (defparameter *quote* #\þ)

@@ -9,15 +9,10 @@
   :bug-tracker ""
   :source-control (:git "")
 
-  ;; Dependencies.
-  :depends-on (:clingon :cl-csv :auto-text :flexi-streams)
+  :class :package-inferred-system
 
-  ;; Project stucture.
-  :serial t
-  :components ((:module "src"
-                        :serial t
-                        :components ((:file "packages")
-                                     (:file "dat2csv"))))
+  ;; Dependencies.
+  :depends-on ("dat2csv/src/main")
 
   ;; Build a binary:
   ;; don't change this line.
@@ -25,4 +20,4 @@
   ;; binary name: adapt.
   :build-pathname "dat2csv"
   ;; entry point: here "main" is an exported symbol. Otherwise, use a double ::
-  :entry-point "dat2csv:main")
+  :entry-point "dat2csv/src/main:main")

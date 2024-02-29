@@ -39,3 +39,4 @@ tramp
 
 # cask packages
 .cask/
+.qlot/

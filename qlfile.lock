@@ -1,0 +1,8 @@
+("quicklisp" .
+ (:class qlot/source/dist:source-dist
+  :initargs (:distribution "https://beta.quicklisp.org/dist/quicklisp.txt" :%version :latest)
+  :version "2023-10-21"))
+("auto-text" .
+ (:class qlot/source/git:source-git
+  :initargs (:remote-url "https://github.com/defunkydrummer/auto-text.git" :ref "1d5ce67")
+  :version "git-1d5ce67"))

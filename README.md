@@ -1,5 +1,10 @@
 # dat2csv
 
+## Build Requirements
+
+- [Qlot](https://github.com/fukamachi/qlot)
+- make
+
 ## Usage
 ```
 NAME:
