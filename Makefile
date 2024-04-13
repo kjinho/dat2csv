@@ -1,14 +1,14 @@
 LISP ?= sbcl
-QLOT ?= qlot
 
 all: build
 
 run:
-	rlwrap $(QLOT) exec $(LISP) --load run.lisp
+	$(LISP) --no-userinit --load .qlot/setup.lisp \
+		--load run.lisp
 
 build:
-	$(QLOT) exec \
-                $(LISP) --non-interactive \
+	$(LISP) --no-userinit --non-interactive \
+        --load .qlot/setup.lisp \
 		--load dat2csv.asd \
 		--eval '(ql:quickload :dat2csv)' \
 		--eval '(asdf:make :dat2csv)'
