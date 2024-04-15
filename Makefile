@@ -31,6 +31,7 @@ test:
 	$(LISP) \
 		$(LISP_ARGS) \
 		$(LISP_BUILD_ARGS) \
+		--load .qlot/setup.lisp \
 		--load run-tests.lisp
 
 clean:
