@@ -4,6 +4,7 @@
 
 - [Qlot](https://github.com/fukamachi/qlot)
 - make
+- SBCL
 
 ## Usage
 ```

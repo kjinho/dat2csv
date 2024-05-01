@@ -3,7 +3,6 @@
   (:import-from :clingon)
   (:import-from :cl-csv)
   (:import-from :auto-text)
-  (:import-from :flexi-streams)
   (:export :main
            :convert-concordance-to-csv))
 (in-package :dat2csv/src/main)
@@ -12,16 +11,12 @@
 (defparameter *quote* #\þ)
 
 (defun convert-concordance-to-csv (filename &key (stream *standard-output*))
-  (let ((file-info (auto-text:analyze filename 
-                                      :silent t
-                                      :sample-size 0)))
-    (cl-csv:write-csv 
-     (with-open-file (s filename :element-type '(unsigned-byte 8))
-       (setq s (flexi-streams:make-flexi-stream
-                s
-                :external-format (case (getf file-info :bom-type)
-                                   (:utf-16le :utf-16le)
-                                   (otherwise :utf-8))))
+  (let* ((file-info (auto-text:analyze filename 
+                                       :silent t
+                                       :sample-size 0))
+         (encoding  (getf file-info :encoding)))
+    (cl-csv:write-csv
+     (with-open-file (s filename :external-format encoding)
        (cl-csv:read-csv s 
                         :separator *separator*
                         :quote *quote*))
@@ -53,7 +48,7 @@
   (clingon:make-command
    :name "dat2csv"
    :description "convert Concordance DAT file to CSV"
-   :version "0.1.0"
+   :version "0.1.1"
    :license "All rights reserved"
    :authors '("Jin-Ho King <j@kingesq.us>")
    :usage "[OPTIONS] <DAT-FILE>"

@@ -2,7 +2,7 @@
 
 (defsystem "dat2csv"
   :author "Jin-Ho King <j@kingesq.us>"
-  :version "0.1.0"
+  :version "0.1.1"
   :license "MIT"
   :description "convert Concordance DAT file to CSV"
   :homepage ""
